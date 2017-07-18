@@ -8,5 +8,6 @@ RUN apk update \
     && go-wrapper install
 
 FROM alpine:latest
+MAINTAINER phithon <root@leavesongs.com>
 COPY --from=builder /go/bin/gobuster /usr/bin/
 ENTRYPOINT ["gobuster"]
