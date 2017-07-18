@@ -13,7 +13,7 @@ docker run --rm -v/root/dict:/dict -it vulhub/gobuster:latest -w /dict/top3000_d
 Dir Mod:
 
 ```
-docker run --rm -v/root/dict:/dict -it vulhub/gobuster:latest -w /dict/Top1000-RobotsDisallowed.txt -u https://www.leavesongs.com -k
+docker run --rm -v/root/dict:/dict -it vulhub/gobuster:latest -w /dict/Top1000-RobotsDisallowed.txt -u https://example.com -k
 ```
 
 ## Build
