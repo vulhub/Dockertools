@@ -15,6 +15,6 @@ RUN set -ex \
 
 EXPOSE 3000
 
-WORKDIR /usr/src
+WORKDIR /usr/src/web
 
 CMD ["node", "app"]
