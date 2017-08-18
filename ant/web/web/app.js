@@ -36,10 +36,6 @@ app.use(bparser.json())
 app.use(bparser.urlencoded({
 	extended: true
 }))
-app.use(function(req, res, next) {
-	next();
-})
-
 
 //	监听端口
 var port = process.env.PORT || 3000
