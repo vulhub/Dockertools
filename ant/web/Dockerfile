@@ -1,4 +1,4 @@
-FROM node:8.4
+FROM node:4.3.2
 
 MAINTAINER phithon <root@leavesongs.com>
 

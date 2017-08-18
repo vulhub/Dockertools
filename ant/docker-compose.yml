@@ -12,5 +12,3 @@ services:
    build: ./database/
    volumes:
     - ./volumes/mongo:/data/db
-   environment:
-    - MONGO_INITDB_DATABASE=ant
