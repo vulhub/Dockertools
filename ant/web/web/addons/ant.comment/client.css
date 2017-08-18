@@ -1,0 +1,11 @@
+.comment {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+.comment > blockquote {
+	color: #4D8C12;
+	border-radius: 5px;
+	border: 1px solid #BFBFBF;
+	border-left: 6px solid #BFBFBF;
+}

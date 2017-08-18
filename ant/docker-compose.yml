@@ -1,0 +1,14 @@
+version: '2'
+services:
+ web:
+   build: ./web/
+   ports:
+    - "3000:3000"
+   env_file:
+    - .env
+   depends_on:
+    - db
+ db:
+   build: ./database/
+   volumes:
+    - ./volumes/mongo:/data/db

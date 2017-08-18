@@ -1,0 +1,35 @@
+{
+  "name": "ant",
+  "version": "1.0.0",
+  "description": "> 代码仅供学习参考与合法的研究测试。",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "bson": "^1.0.4",
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "lib-qqwry": "^0.0.5",
+    "express-session": "^1.13.0",
+    "mongoose": "^3.9.7",
+    "qiniu": "^6.1.9",
+    "morgan": "^1.7.0",
+    "nodemailer-smtp-transport": "^1.1.0",
+    "nodemailer": "^1.11.0",
+    "uglify-js": "^2.6.2",
+    "socket.io": "^1.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antoor/ant"
+  },
+  "author": "antoor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antoor/ant/issues"
+  },
+  "homepage": "https://github.com/antoor/ant"
+}
