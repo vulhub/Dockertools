@@ -7,12 +7,7 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY ./database/ /tmp/database/
-
 COPY ./database/db.conf /etc/mongod.conf
-
-RUN cd /tmp/database/ \
-    && mongorestore \
-    && cd / \
-    && rm -rf /tmp/database
-
+COPY ./init.sh /docker-entrypoint-initdb.d/init.sh
+    
 CMD ["mongod", "-f", "/etc/mongod.conf"]
