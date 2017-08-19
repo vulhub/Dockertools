@@ -12,7 +12,7 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN set -ex \
     && chmod +x /docker-entrypoint.sh \
     && apt-get update \
-    && apt-get install -y --no-install-recommends wget \
+    && apt-get install -y --no-install-recommends wget libkrb5-dev \
     && wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -O /usr/bin/wait-for-it.sh \
     && chmod +x /usr/bin/wait-for-it.sh \
     && cd /usr/src \
