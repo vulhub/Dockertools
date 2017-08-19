@@ -3,7 +3,7 @@
 //
 
 var mongoose = require('mongoose')
-var mongodb = mongoose.createConnection(process.env.DB_HOST, process.env.DB_NAME)
+var mongodb = mongoose.createConnection(process.env.DB_HOST, process.env.DB_NAME, parseInt(process.env.DB_PORT))
 
 module.exports = {
 	cache: {},

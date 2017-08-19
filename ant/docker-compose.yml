@@ -1,5 +1,16 @@
 version: '2'
 services:
+ nginx:
+   image: nginx
+   ports:
+    - "80:80"
+    - "443:443"
+   volumes:
+    - ./volumes/nginx/conf.d:/etc/nginx/conf.d
+    - ./volumes/nginx/cert:/etc/nginx/cert
+    - /etc/letsencrypt:/etc/letsencrypt
+   depends_on:
+    - web
  web:
    build: ./web/
    ports:

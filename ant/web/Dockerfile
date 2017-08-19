@@ -7,8 +7,10 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY ./web/ /usr/src/web/
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN set -ex \
+    && chmod +x /docker-entrypoint.sh \
     && apt-get update \
     && cd /usr/src/web \
     && npm install
@@ -16,5 +18,7 @@ RUN set -ex \
 EXPOSE 3000
 
 WORKDIR /usr/src/web
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 CMD ["node", "app"]
