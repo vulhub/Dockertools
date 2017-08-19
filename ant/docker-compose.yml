@@ -12,8 +12,6 @@ services:
     - web
  web:
    build: ./web/
-   ports:
-    - "3000:3000"
    volumes:
     - ./web/web:/usr/src
    env_file:
