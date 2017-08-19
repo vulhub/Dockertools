@@ -7,7 +7,7 @@ while true; do
         # success!
         break
     fi
-    echo "Waiting for connect to mongodb..." ;;
+    echo "Waiting for connect to mongodb..."
     sleep 1
 done
 
