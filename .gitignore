@@ -2,3 +2,5 @@
 
 ant/volumes/mongo/
 ant/volumes/nginx/conf.d/ant.conf
+
+node_modules
