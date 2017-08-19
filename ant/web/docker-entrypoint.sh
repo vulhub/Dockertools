@@ -2,13 +2,6 @@
 
 set -ex
 
-while true; do
-    if mongo --host $DB_HOST --port $DB_PORT --eval 'quit(0)' &> /dev/null; then
-        # success!
-        break
-    fi
-    echo "Waiting for connect to mongodb..."
-    sleep 1
-done
+wait-for-it.sh db:27017 -t 30 -- echo "Success to connect to mongodb..."
 
 exec "$@"
