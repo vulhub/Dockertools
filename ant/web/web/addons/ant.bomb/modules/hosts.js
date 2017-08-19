@@ -52,7 +52,7 @@ module.exports = function(app, db, udb, fc, path, handler) {
             reg: function(sid, sock, project) {
                 //  上线信息
                 var self = HOST.client,
-                    ip = fc.getIP(null, sock.handshake.address),
+                    ip = fc.getIP(null, sock.handshake.headers['x-forwarded-for'] || sock.request.connection.remoteAddress),
                     ad = qqwry.searchIP(ip),
                     ua = fc.toStr(sock.handshake.headers['user-agent'] || ''),
                     addr = fc.toStr(ad.Country + ' ' + ad.Area),

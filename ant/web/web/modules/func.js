@@ -27,7 +27,7 @@ var FC = {
 	},
 	//@	获取IP
 	getIP: function(req, str) {
-		var _ip = str ? str : req._remoteAddress,
+		var _ip = str ? str : (req.headers['x-forwarded-for'] || req.connection.remoteAddress),
 			sip = this.toStr(_ip),
 			aip = sip.match(/([0-9]{1,3}\.{1}){3}[0-9]{1,3}/);
 		if (aip && aip.length > 0) {
