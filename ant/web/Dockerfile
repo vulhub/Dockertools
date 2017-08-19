@@ -6,7 +6,7 @@ ENV LC_ALL C.UTF-8
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-COPY ./web/ /usr/src/web/
+COPY ./web/package.json /usr/src/package.json
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN set -ex \
@@ -15,12 +15,13 @@ RUN set -ex \
     && apt-get install -y --no-install-recommends wget \
     && wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -O /usr/bin/wait-for-it.sh \
     && chmod +x /usr/bin/wait-for-it.sh \
-    && cd /usr/src/web \
-    && npm install
+    && cd /usr/src \
+    && npm install -g \
+    && rm -rf *
 
 EXPOSE 3000
 
-WORKDIR /usr/src/web
+WORKDIR /usr/src
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
