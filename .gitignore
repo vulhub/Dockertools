@@ -1,3 +1,4 @@
 .env
 
 ant/volumes/mongo/
+ant/volumes/nginx/conf.d/ant.conf
