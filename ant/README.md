@@ -40,4 +40,9 @@ vim volumes/nginx/conf.d/ant.conf
 
 ### 0x04 运行
 
-pass
+第一次运行的时候会安装node_modules，如果内存不足，可以手动安装：
+
+```
+cd web/web/
+docker run -it --rm -v `pwd`:/usr/src ant_web bash
+```

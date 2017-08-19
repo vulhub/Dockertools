@@ -31,10 +31,17 @@
                                         caption: '关闭信息',
                                         attr: 'rows="5" style="width:80%"'
                                     }
+                                }, {
+                                    field: 'skey',
+                                    type: 'text',
+                                    html: {
+                                        caption: '暗号',
+                                    }
                                 }],
                                 record: {
                                     status: data.ret.register_on,
-                                    msg: data.ret.register_msg
+                                    msg: data.ret.register_msg,
+                                    skey: data.ret.register_key
                                 },
                                 actions: {
                                     '保存' : function() {

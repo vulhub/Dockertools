@@ -3,13 +3,15 @@ module.exports = function(app, db, fc) {
         adb = db.init('admin', {
             register_on: Boolean,        //    注册开关
             register_msg: String,        //    关闭注册信息
+            register_key: String,        //    注册暗号 
         })
 
     adb.findOne({}, function(err, ret) {
         if (!ret) {
             new adb({
                 register_on: true,
-                register_msg: '已关闭注册!'
+                register_msg: '已关闭注册!',
+                register_key: 'phphp'
             }).save(function(){});
         }
     })
@@ -37,7 +39,8 @@ module.exports = function(app, db, fc) {
                 adb.update({}, {
                     $set: {
                         register_on: fc.toStr(req.body.status) === 'true' ? true : false,
-                        register_msg: fc.toStr(req.body.msg)
+                        register_msg: fc.toStr(req.body.msg),
+                        register_key: fc.toStr(req.body.skey)
                     }
                 }, function(err, ret) {
                     res.json({

@@ -82,6 +82,15 @@
                 header: '注册',
                 fields: [
                     {
+                        type: 'text',
+                        field: 'skey',
+                        required: true,
+                        html: {
+                            caption: '暗号',
+                            attr: input_style
+                        }
+                    },
+                    {
                         type: 'email',
                         field: 'email',
                         required: true,

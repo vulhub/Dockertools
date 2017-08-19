@@ -76,6 +76,7 @@ module.exports = function(app, db, fc) {
 			var email = fc.toStr(req.body.email);
 			var nickname = fc.toStr(req.body.nickname);
 			var password = fc.md5(fc.toStr(req.body.password));
+			var skey = fc.toStr(req.body.skey);
 			//-	判断是否允许注册
 			var adb = db.get('admin');
 			adb.findOne({}, function(err, ret) {
@@ -84,78 +85,83 @@ module.exports = function(app, db, fc) {
 						err: ret.register_msg,
 						ret: false
 					});
-				}else{
-					//-	判断邮箱是否已经注册
-					mdb.findOne({
-						email: email
-					}, function(err, ret) {
-						if (!ret) {
-							mdb.findOne({
-								nickname: nickname
-							}, function(err1, ret1) {
-								if (!ret1) {
-									//-	开始注册
-									new mdb({
-										email: email,
-										coin: 0,
-										isadmin: false,
-										verify: false,
-										nickname: nickname,
-										password: password,
-										config: '',
-										regip: fc.getIP(req),
-										loginip: fc.getIP(req),
-										regtime: new Date(),
-										logintime: new Date(),
-										buy_bomb: false
-									}).save(function(err2, ret2) {
-										//=	发送验证邮件
-										if (ret2) {
-											var active_link = 'http://' + req.headers.host + '/addons/ant.login.user/active/' + ret2._id + '/' + fc.md5(ret2._id + ':ant:' + ret2.password);
-											mailer.send({
-												to: email,
-												subject: 'ANT - 蚁逅注册验证',
-												html: 'Hi, ' + nickname + '<br>' +
-												'欢迎您注册蚁逅，请点击下边链接验证您的帐号，谢谢支持 :)<br>' +
-												'<a href="' + active_link + '">' + active_link + '</a>'
-											}, function(err, ret) {
-												if (err) {
-													//	删除帐号= =
-													mdb.remove({
-														_id: ret2._id
-													}, function(e, r) {});
-													res.json({
-														ret: false,
-														err: '邮件发送失败!请尝试更换QQ邮箱或联系蚁逅!'
-													});
-												}else{
-													res.json({
-														ret: true
-													})
-												}
-											})
-										}else{
-											res.json({
-												ret: false,
-												err: err2
-											})
-										}
-									})
-								}else{
-									res.json({
-										ret: false,
-										err: '昵称已经存在!'
-									})
-								}
-							})
-						}else{
-							res.json({
-								ret: false,
-								err: '邮箱已经存在!'
-							})
-						}
-					})
 				}
+				if (skey != ret.register_key) {
+					return res.json({
+						err: '暗号错误',
+						ret: false
+					});
+				}
+				//-	判断邮箱是否已经注册
+				mdb.findOne({
+					email: email
+				}, function(err, ret) {
+					if (!ret) {
+						mdb.findOne({
+							nickname: nickname
+						}, function(err1, ret1) {
+							if (!ret1) {
+								//-	开始注册
+								new mdb({
+									email: email,
+									coin: 0,
+									isadmin: false,
+									verify: false,
+									nickname: nickname,
+									password: password,
+									config: '',
+									regip: fc.getIP(req),
+									loginip: fc.getIP(req),
+									regtime: new Date(),
+									logintime: new Date(),
+									buy_bomb: false
+								}).save(function(err2, ret2) {
+									//=	发送验证邮件
+									if (ret2) {
+										var active_link = 'http://' + req.headers.host + '/addons/ant.login.user/active/' + ret2._id + '/' + fc.md5(ret2._id + ':ant:' + ret2.password);
+										mailer.send({
+											to: email,
+											subject: 'ANT - 蚁逅注册验证',
+											html: 'Hi, ' + nickname + '<br>' +
+											'欢迎您注册蚁逅，请点击下边链接验证您的帐号，谢谢支持 :)<br>' +
+											'<a href="' + active_link + '">' + active_link + '</a>'
+										}, function(err, ret) {
+											if (err) {
+												//	删除帐号= =
+												mdb.remove({
+													_id: ret2._id
+												}, function(e, r) {});
+												res.json({
+													ret: false,
+													err: '邮件发送失败!请尝试更换QQ邮箱或联系蚁逅!'
+												});
+											}else{
+												res.json({
+													ret: true
+												})
+											}
+										})
+									}else{
+										res.json({
+											ret: false,
+											err: err2
+										})
+									}
+								})
+							}else{
+								res.json({
+									ret: false,
+									err: '昵称已经存在!'
+								})
+							}
+						})
+					}else{
+						res.json({
+							ret: false,
+							err: '邮箱已经存在!'
+						})
+					}
+				})
 			})
 		})
 	//@	激活
