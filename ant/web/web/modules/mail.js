@@ -14,15 +14,16 @@ var config = {
 }
 
 module.exports = {
-	_transport: nodemailer.createTransport(transport({
+	_transport: nodemailer.createTransport({
 		host: config['host'],
 		port: config['port'],
 		secure: true,
 		auth: {
 			user: config['email'],
 			pass: config['password']
-		}
-	})),
+		},
+		proxy: process.env.PROXY || undefined
+	}),
 	send: function(opt, fn) {
 		var _opt = {
 			from: config['name'] + '<' + config['email'] + '>',
