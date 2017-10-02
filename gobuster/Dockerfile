@@ -1,4 +1,4 @@
-FROM golang:1.8-alpine as builder
+FROM golang:1.9-alpine as builder
 WORKDIR /go/src/app
 RUN apk update \
     && apk add -f git \
