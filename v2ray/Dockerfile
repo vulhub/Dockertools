@@ -2,11 +2,10 @@ FROM golang:alpine AS builder
 RUN apk update && apk add --no-cache git bash wget curl
 WORKDIR /go/src/v2ray.com/core
 RUN git clone --progress https://github.com/v2ray/v2ray-core . && \
-    bash ./release/user-package.sh nosource noconf codename=$(git describe --tags) buildname=docker-fly abpathtgz=/tmp/v2ray.tgz
+    bash ./release/user-package.sh nosource noconf codename=$(git describe --tags) abpathtgz=/tmp/v2ray.tgz
 
 FROM alpine
 
-LABEL maintainer "V2Fly Community <vcptr@v2fly.org>"
 COPY --from=builder /tmp/v2ray.tgz /tmp
 RUN apk update && apk add ca-certificates && \
     mkdir -p /usr/bin/v2ray && \
